@@ -1,0 +1,22 @@
+services:
+  site-api:
+    container_name: site-api
+    image: klimdos/site-api:0.0.1-alpha
+    networks:
+      - main
+  ngrok:
+    container_name: site-api-ngrok
+    image: shkoliar/ngrok
+    command: ["ngrok", "http", "site-api:80"]
+    ports:
+      - 4551:4551
+    # environment:
+    #   - DOMAIN=web
+    #   - PORT=80
+    links:
+      - site-api
+    networks:
+      - main
+
+networks:
+  main:
