@@ -28,6 +28,7 @@ import json
 
 # Third party imports
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 import uvicorn
 
 # Module level variables
@@ -56,7 +57,7 @@ def main():
     # Init
     app = FastAPI(
         debug = True,
-        title = "Microservice name API",
+        title = "Terrafrom report API",
         description = "Some meaningfull description",
         version = "0.0.1-alpha",
         )
@@ -74,8 +75,16 @@ def main():
     async def get_data():
         """Retrive all data from DB"""
         return data 
-    
+
+
+    @app.get("/")
+    async def redirect():
+        response = RedirectResponse(url='/docs')
+        return response
+
+
     return app
+
 
 
 # if you run in locally
